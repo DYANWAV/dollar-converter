@@ -11,13 +11,13 @@
   "author": "dyandev",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
-    "autoprefixer": "^10.4.20",
-    "concurrently": "^9.1.0",
-    "eslint": "^9.14.0",
-    "globals": "^15.12.0",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14"
+    "@eslint/js": "9.14.0",
+    "autoprefixer": "10.4.20",
+    "concurrently": "9.1.0",
+    "eslint": "9.14.0",
+    "globals": "15.12.0",
+    "postcss": "8.4.47",
+    "tailwindcss": "3.4.14"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "5.1.1"
