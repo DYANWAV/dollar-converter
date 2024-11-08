@@ -1,16 +1,32 @@
-import { getDollarInfo, ENPARALELO_MONITOR } from "./services/pydolarvenezuela.js"
+import { getDollarInfo, ENPARALELO } from "./services/pydolarvenezuela.js"
+import { setLastUpdate } from "./utils/getLastUpdate.js"
 
 const $ = el => document.querySelector(el)
 const $bolivaresInput = $("#bolivares")
 const $dollarsInput = $("#dollars")
 const $selectMonitor = $("#monitors")
 const $resetBtn = $("#reset")
+const $last_update = $("#last-update")
 
-const { monitors } = await getDollarInfo()
-const monitor = $selectMonitor.value
-let price = monitors[monitor].price
+const getDollarPrice = async (monitor = ENPARALELO) => {
+  let dollarInfo
+  try {
+    dollarInfo = await getDollarInfo()
+  } catch (error) {
+    console.error(error)
+  }
+  const { monitors } = dollarInfo
 
-$bolivaresInput.value = price.toFixed(2)
+  const price = monitors[monitor].price
+
+  return { monitors, price: price.toFixed(2) }
+}
+
+let { monitors, price } = await getDollarPrice()
+
+setLastUpdate(monitors, $selectMonitor.value, $last_update)
+
+$bolivaresInput.value = price
 $dollarsInput.value = "1.00"
 
 $bolivaresInput.addEventListener("input", e => {
@@ -27,12 +43,13 @@ $dollarsInput.addEventListener("input", e => {
   $bolivaresInput.value = result.toFixed(2)
 })
 
-$resetBtn.addEventListener("click", () => {
-  $selectMonitor.value = ENPARALELO_MONITOR
-
+$resetBtn.addEventListener("click", async () => {
+  const monitor = $selectMonitor.value
+  const { price } = await getDollarPrice(monitor)
   $dollarsInput.value = "1.00"
-  $bolivaresInput.value = monitors[$selectMonitor.value].price.toFixed(2)
+  $bolivaresInput.value = price
   $dollarsInput.focus()
+  setLastUpdate(monitors, monitor, $last_update)
 })
 
 $selectMonitor.addEventListener("change", e => {
@@ -40,4 +57,5 @@ $selectMonitor.addEventListener("change", e => {
   price = monitors[monitor].price
   $bolivaresInput.value = price.toFixed(2)
   $dollarsInput.value = "1.00"
+  setLastUpdate(monitors, monitor, $last_update)
 })
