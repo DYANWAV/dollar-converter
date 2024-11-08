@@ -1,4 +1,4 @@
-import { getDollarInfo, ENPARALELO_MONITOR } from "./services/pydolarvenezuela.js"
+import { getDollarInfo, ENPARALELO } from "./services/pydolarvenezuela.js"
 
 const $ = el => document.querySelector(el)
 const $bolivaresInput = $("#bolivares")
@@ -6,11 +6,20 @@ const $dollarsInput = $("#dollars")
 const $selectMonitor = $("#monitors")
 const $resetBtn = $("#reset")
 
-const { monitors } = await getDollarInfo()
-const monitor = $selectMonitor.value
-let price = monitors[monitor].price
+// const { monitors } = await getDollarInfo()
+// const monitor = $selectMonitor.value
+// let price = monitors[monitor].price
 
-$bolivaresInput.value = price.toFixed(2)
+const getDollarPrice = async (monitor = ENPARALELO) => {
+  const { monitors } = await getDollarInfo()
+  const price = monitors[monitor].price
+
+  return { monitors, price: price.toFixed(2) }
+}
+
+let { monitors, price } = await getDollarPrice()
+
+$bolivaresInput.value = price
 $dollarsInput.value = "1.00"
 
 $bolivaresInput.addEventListener("input", e => {
@@ -27,11 +36,11 @@ $dollarsInput.addEventListener("input", e => {
   $bolivaresInput.value = result.toFixed(2)
 })
 
-$resetBtn.addEventListener("click", () => {
-  $selectMonitor.value = ENPARALELO_MONITOR
-
+$resetBtn.addEventListener("click", async () => {
+  const { price } = await getDollarPrice()
+  $selectMonitor.value = ENPARALELO
   $dollarsInput.value = "1.00"
-  $bolivaresInput.value = monitors[$selectMonitor.value].price.toFixed(2)
+  $bolivaresInput.value = price
   $dollarsInput.focus()
 })
 
