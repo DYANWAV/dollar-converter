@@ -554,14 +554,6 @@ video {
   display: none;
 }
 
-.col-start-2 {
-  grid-column-start: 2;
-}
-
-.row-start-2 {
-  grid-row-start: 2;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -610,11 +602,6 @@ video {
   gap: 2rem;
 }
 
-.bg-green-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 101 52 / var(--tw-bg-opacity));
-}
-
 .bg-stone-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(41 37 36 / var(--tw-bg-opacity));
@@ -637,14 +624,14 @@ video {
   line-height: 2rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -670,11 +657,6 @@ video {
 
 .text-white\/90 {
   color: rgb(255 255 255 / 0.9);
-}
-
-.text-green-400 {
-  --tw-text-opacity: 1;
-  color: rgb(74 222 128 / var(--tw-text-opacity));
 }
 
 .shadow-lg {
@@ -802,8 +784,16 @@ option {
     grid-column-start: 2;
   }
 
-  .md\:row-start-2 {
-    grid-row-start: 2;
+  .md\:col-start-1 {
+    grid-column-start: 1;
+  }
+
+  .md\:row-start-1 {
+    grid-row-start: 1;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .md\:p-8 {
@@ -827,6 +817,10 @@ option {
 
   .lg\:row-start-2 {
     grid-row-start: 2;
+  }
+
+  .lg\:text-right {
+    text-align: right;
   }
 
   .lg\:\[grid-template-columns\:1fr_1\.5fr_1fr\] {

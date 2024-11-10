@@ -19,7 +19,7 @@ const getDollarPrice = async (monitor = ENPARALELO) => {
 
   const price = monitors[monitor].price
 
-  return { monitors, price: price.toFixed(2) }
+  return { monitors, price: price }
 }
 
 let { monitors, price } = await getDollarPrice()
