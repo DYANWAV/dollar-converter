@@ -41,6 +41,16 @@ option {
   color: var(--green-500);
 }
 
+#reset {
+  color: rgb(255 255 255 / 0.8);
+}
+
+#reset:hover {
+  text-decoration-line: underline;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
 @media (min-width: 768px) {
   :root {
     font-size: 18px;
