@@ -566,6 +566,11 @@ video {
   display: grid;
 }
 
+.size-6 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -579,8 +584,8 @@ video {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
-.grid-cols-\[1fr_11fr\] {
-  grid-template-columns: 1fr 11fr;
+.grid-cols-\[1fr_11fr_auto\] {
+  grid-template-columns: 1fr 11fr auto;
 }
 
 .flex-col {
@@ -690,6 +695,16 @@ video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-100 {
+  transition-duration: 100ms;
+}
+
 :root {
   /* background-color: #000000de; */
   --green-950: #052e16;
@@ -757,6 +772,40 @@ select {
 
 option {
   color: var(--green-500);
+}
+
+#copy-btn {
+  position: relative;
+}
+
+#tooltip-text {
+  position: absolute;
+  color: var(--green-500);
+  background-color: var(--green-950);
+  border-radius: 4px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+  font-size: small;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid;
+  border-color: var(--green-950) transparent transparent transparent;
+}
+
+#copy-btn:hover #tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (min-width: 768px) {

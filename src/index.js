@@ -8,6 +8,7 @@ const $selectMonitor = $("#monitors")
 const $resetBtn = $("#reset")
 const $last_update = $("#last-update")
 const $percent = $("#percent")
+const $copyBtns = document.querySelectorAll("#copy-btn")
 
 const getDollarPrice = async (monitor = ENPARALELO) => {
   let dollarInfo
@@ -25,7 +26,6 @@ const getDollarPrice = async (monitor = ENPARALELO) => {
 }
 
 let { monitors, price, percent, symbol } = await getDollarPrice()
-console.log({ percent, symbol })
 
 setLastUpdate(monitors, $selectMonitor.value, $last_update)
 
@@ -67,4 +67,25 @@ $selectMonitor.addEventListener("change", e => {
   $percent.classList.remove("text-green-500", "text-red-500")
   $percent.classList.add(symbol === "▼" ? "text-red-500" : "text-green-500")
   setLastUpdate(monitors, monitor, $last_update)
+})
+
+$copyBtns.forEach(copyBtn => {
+  copyBtn.addEventListener("click", () => {
+    const currencyInput = copyBtn.previousElementSibling
+    currencyInput.select()
+    navigator.clipboard.writeText(currencyInput.value)
+    copyBtn.classList.replace("text-white/60", "text-green-500")
+    copyBtn.classList.remove("hover:text-white")
+
+    const tooltipText = copyBtn.querySelector("span")
+    tooltipText.textContent = "copied"
+
+    const timeOutID = setTimeout(() => {
+      copyBtn.classList.replace("text-green-500", "text-white/60")
+      copyBtn.classList.add("hover:text-white")
+
+      tooltipText.textContent = "copy"
+      clearTimeout(timeOutID)
+    }, 3000)
+  })
 })

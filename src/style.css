@@ -41,6 +41,40 @@ option {
   color: var(--green-500);
 }
 
+#copy-btn {
+  position: relative;
+}
+
+#tooltip-text {
+  position: absolute;
+  color: var(--green-500);
+  background-color: var(--green-950);
+  border-radius: 4px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+  font-size: small;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid;
+  border-color: var(--green-950) transparent transparent transparent;
+}
+
+#copy-btn:hover #tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 @media (min-width: 768px) {
   :root {
     font-size: 18px;
