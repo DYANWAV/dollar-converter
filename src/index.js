@@ -71,18 +71,21 @@ $selectMonitor.addEventListener("change", e => {
 
 $copyBtns.forEach(copyBtn => {
   copyBtn.addEventListener("click", () => {
-    const currencyInput = copyBtn.previousElementSibling
-    currencyInput.select()
-    navigator.clipboard.writeText(currencyInput.value)
-    copyBtn.classList.replace("text-white/60", "text-green-500")
-    copyBtn.classList.remove("hover:text-white")
+    const input = copyBtn.previousElementSibling
+    const checkIcon = copyBtn.querySelector(".icon-tabler-check")
+    const copyIcon = copyBtn.querySelector(".copy-icon")
+    checkIcon.classList.remove("hidden")
+    copyIcon.classList.add("hidden")
+
+    input.select()
+    navigator.clipboard.writeText(input.value)
 
     const tooltipText = copyBtn.querySelector("span")
     tooltipText.textContent = "copied"
 
     const timeOutID = setTimeout(() => {
-      copyBtn.classList.replace("text-green-500", "text-white/60")
-      copyBtn.classList.add("hover:text-white")
+      checkIcon.classList.add("hidden")
+      copyIcon.classList.remove("hidden")
 
       tooltipText.textContent = "copy"
       clearTimeout(timeOutID)
