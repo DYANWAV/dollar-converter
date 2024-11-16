@@ -1,4 +1,4 @@
-import { getDollarInfo, ENPARALELO } from "./services/pydolarvenezuela.js"
+import { getDollarInfo, ENPARALELO } from "./services/getCurrencyInfo.js"
 import { setLastUpdate } from "./utils/getLastUpdate.js"
 
 const $ = el => document.querySelector(el)
