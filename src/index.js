@@ -1,14 +1,21 @@
-import { getDollarInfo, ENPARALELO } from "./services/getCurrencyInfo.js"
-import { setLastUpdate } from "./utils/getLastUpdate.js"
+import {
+  getDollarInfo,
+  ENPARALELO,
+  getCurrencyInfo,
+  DOLLAR_INFO,
+  EURO_INFO,
+} from './services/getCurrencyInfo.js'
+import { setLastUpdate } from './utils/getLastUpdate.js'
+import { MONITORS } from './utils/monitors.js'
 
 const $ = el => document.querySelector(el)
-const $bolivaresInput = $("#bolivares")
-const $dollarsInput = $("#dollars")
-const $selectMonitor = $("#monitors")
-const $resetBtn = $("#reset")
-const $last_update = $("#last-update")
-const $percent = $("#percent")
-const $copyBtns = document.querySelectorAll("#copy-btn")
+const $bolivaresInput = $('#bolivares')
+const $dollarsInput = $('#dollars')
+const $selectMonitor = $('#monitors')
+const $resetBtn = $('#reset')
+const $last_update = $('#last-update')
+const $percent = $('#percent')
+const $copyBtns = document.querySelectorAll('#copy-btn')
 
 const getDollarPrice = async (monitor = ENPARALELO) => {
   let dollarInfo
@@ -25,69 +32,88 @@ const getDollarPrice = async (monitor = ENPARALELO) => {
   return { monitors, price: price.toFixed(2), percent, symbol }
 }
 
-let { monitors, price, percent, symbol } = await getDollarPrice()
+const getPrice = async currency => {
+  const url = {
+    dollar: DOLLAR_INFO,
+    euro: EURO_INFO,
+  }
+
+  try {
+    const monitors = await getCurrencyInfo(url[currency])
+    const { price, percent, symbol } = monitors.enparalelovzla
+    return { monitors, price, percent, symbol }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const { price: priceeee, monitors: monitorss } = await getPrice('euro')
+console.log(priceeee, monitorss)
+
+// let { monitors, price, percent, symbol } = await getDollarPrice()
+let { monitors, price, percent, symbol } = await getPrice('euro')
 
 setLastUpdate(monitors, $selectMonitor.value, $last_update)
 
 $bolivaresInput.value = price
-$dollarsInput.value = "1.00"
+$dollarsInput.value = '1.00'
 $percent.textContent = `${symbol} ${percent}%`
-$percent.classList.add(symbol === "▼" ? "text-red-500" : "text-green-500")
+$percent.classList.add(symbol === '▼' ? 'text-red-500' : 'text-green-500')
 
-$bolivaresInput.addEventListener("input", e => {
+$bolivaresInput.addEventListener('input', e => {
   let bolivares = e.target.value
 
   const result = bolivares / price
   $dollarsInput.value = result.toFixed(2)
 })
 
-$dollarsInput.addEventListener("input", e => {
+$dollarsInput.addEventListener('input', e => {
   let dollars = e.target.value
 
   const result = dollars * price
   $bolivaresInput.value = result.toFixed(2)
 })
 
-$resetBtn.addEventListener("click", async () => {
+$resetBtn.addEventListener('click', async () => {
   const monitor = $selectMonitor.value
   const { price } = await getDollarPrice(monitor)
-  $dollarsInput.value = "1.00"
+  $dollarsInput.value = '1.00'
   $bolivaresInput.value = price
   $dollarsInput.focus()
   setLastUpdate(monitors, monitor, $last_update)
 })
 
-$selectMonitor.addEventListener("change", e => {
+$selectMonitor.addEventListener('change', e => {
   const monitor = e.target.value
   price = monitors[monitor].price
   const { percent, symbol } = monitors[monitor]
   $bolivaresInput.value = price.toFixed(2)
-  $dollarsInput.value = "1.00"
+  $dollarsInput.value = '1.00'
   $percent.textContent = `${symbol} ${percent}%`
-  $percent.classList.remove("text-green-500", "text-red-500")
-  $percent.classList.add(symbol === "▼" ? "text-red-500" : "text-green-500")
+  $percent.classList.remove('text-green-500', 'text-red-500')
+  $percent.classList.add(symbol === '▼' ? 'text-red-500' : 'text-green-500')
   setLastUpdate(monitors, monitor, $last_update)
 })
 
 $copyBtns.forEach(copyBtn => {
-  copyBtn.addEventListener("click", () => {
+  copyBtn.addEventListener('click', () => {
     const input = copyBtn.previousElementSibling
-    const checkIcon = copyBtn.querySelector(".icon-tabler-check")
-    const copyIcon = copyBtn.querySelector(".copy-icon")
-    checkIcon.classList.remove("hidden")
-    copyIcon.classList.add("hidden")
+    const checkIcon = copyBtn.querySelector('.icon-tabler-check')
+    const copyIcon = copyBtn.querySelector('.copy-icon')
+    checkIcon.classList.remove('hidden')
+    copyIcon.classList.add('hidden')
 
     input.select()
     navigator.clipboard.writeText(input.value)
 
-    const tooltipText = copyBtn.querySelector("span")
-    tooltipText.textContent = "copied"
+    const tooltipText = copyBtn.querySelector('span')
+    tooltipText.textContent = 'copied'
 
     const timeOutID = setTimeout(() => {
-      checkIcon.classList.add("hidden")
-      copyIcon.classList.remove("hidden")
+      checkIcon.classList.add('hidden')
+      copyIcon.classList.remove('hidden')
 
-      tooltipText.textContent = "copy"
+      tooltipText.textContent = 'copy'
       clearTimeout(timeOutID)
     }, 3000)
   })
