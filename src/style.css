@@ -3,11 +3,10 @@
 @tailwind utilities;
 
 :root {
-  /* background-color: #000000de; */
   --green-950: #052e16;
   --green-500: #22c55e;
   color: #f6f6f6;
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 16px;
 }
 
@@ -16,92 +15,10 @@
   grid-column-start: 1;
   width: 100%;
   min-width: 280px;
-  font-size: 12px;
 }
 
-.calculator input[type="number"] {
+.calculator input[type='number'] {
   @apply bg-transparent focus:outline-none text-right focus:border-green-500 border-b border-white/60 font-semibold;
   font-size: 18px;
   width: 100%;
-}
-
-select {
-  background-color: var(--green-950);
-  color: var(--green-500);
-  font-weight: 600;
-  border-radius: 0.375rem;
-  padding: 0.5rem;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  flex-grow: 1;
-  text-transform: uppercase;
-}
-
-option {
-  color: var(--green-500);
-}
-
-#copy-btn {
-  position: relative;
-}
-
-#tooltip-text {
-  position: absolute;
-  color: var(--green-500);
-  background-color: var(--green-950);
-  border-radius: 4px;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  padding: 0.25rem 0.5rem;
-  font-size: small;
-  visibility: hidden;
-  opacity: 0;
-}
-
-#tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid;
-  border-color: var(--green-950) transparent transparent transparent;
-}
-
-#copy-btn:hover #tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-#reset {
-  color: rgb(255 255 255 / 0.8);
-}
-
-#reset:hover {
-  text-decoration-line: underline;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity))
-}
-
-@media (min-width: 768px) {
-  :root {
-    font-size: 18px;
-  }
-
-  .calculator {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .calculator {
-    grid-column-start: 2;
-    font-size: 18px;
-  }
-
-  .calculator input[type="number"] {
-    font-size: 24px;
-  }
 }

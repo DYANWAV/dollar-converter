@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module" src="index.js"></script>
   <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="index.css">
   <title>Dollar Converter</title>
 </head>
 
@@ -18,9 +19,14 @@
   <main>
     <div class="grid grid-cols-1 lg:[grid-template-columns:1fr_1.5fr_1fr] gap-8 p-4 md:p-8">
       <section class="calculator">
-        <h2 class="text-2xl font-bold text-white/90 uppercase text-left">Calculadora</h2>
+        <div class="header">
+          <h2 class="text-2xl font-bold text-white/90 uppercase text-left">Calculadora</h2>
+          <select id="select-currency">
+            <option value="dollar" selected>USD</option>
+            <option value="euro">EUR</option>
+        </div>
 
-        <div class="w-full flex gap-6 mb-4">
+        <div class="w-full flex gap-6 mb-4 justify-between">
           <select id="monitors">
             <option value="enparalelovzla" selected>Paralelo</option>
             <option value="bcv">BCV</option>
@@ -31,8 +37,8 @@
 
         <section class="w-full flex flex-col gap-8">
           <div class="grid grid-cols-[1fr_11fr_auto] gap-2">
-            <label class="font-bold text-green-500 md:text-2xl" for="dollars">$</label>
-            <input type="number" inputmode="numeric" id="dollars">
+            <label class="font-bold text-green-500 md:text-2xl" for="currency">$</label>
+            <input type="number" inputmode="numeric" id="currency">
             <button id="copy-btn" class="text-white/60 hover:text-white transition-all duration-100 w-[24px]">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor" class="copy-icon">
@@ -77,7 +83,7 @@
       </section>
 
       <section class="text-center text-sm lg:col-start-2 lg:row-start-2 hover:cursor-default">
-        <p class="text-white/60">Última actualización</p> 
+        <p class="text-white/60">Última actualización</p>
         <time id="last-update" class="text-green-500" datetime="2023-10-01"></time>
       </section>
 
