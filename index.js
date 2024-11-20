@@ -1,8 +1,8 @@
-import { CURRENCIES, URLs } from './consts.js'
-import { getCurrencyInfo } from './services/getCurrencyInfo.js'
-import { copyToClipboard } from './utils/copyToClipboard.js'
-import { setLastUpdate } from './utils/getLastUpdate.js'
-import { getElements } from './utils/getElements.js'
+import { CURRENCIES, URLs } from './src/consts.js'
+import { getCurrencyInfo } from './src/services/getCurrencyInfo.js'
+import { copyToClipboard } from './src/utils/copyToClipboard.js'
+import { setLastUpdate } from './src/utils/getLastUpdate.js'
+import { getElements } from './src/utils/getElements.js'
 
 const $ = getElements()
 

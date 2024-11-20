@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Consulta el precio actual del dólar y el euro en bolívares venezolanos en tiempo real. Utiliza nuestra práctica calculadora para convertir valores entre estas monedas de manera rápida y precisa. Mantente informado y facilita tus transacciones con nuestra herramienta de conversión de moneda." />
+  <title>Dollar Converter</title>
+  <script type="module" crossorigin src="/assets/index-B4b-Ztda.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BrwivWHL.css">
+</head>
+
+<body class="bg-stone-800">
+  <header class="bg-stone-800 shadow-lg shadow-stone-900 p-4">
+    <h1 class="text-xl text-center md:text-left md:text-2xl font-bold drop-shadow-xl shadow-green-50">$Dollar Converter
+    </h1>
+  </header>
+
+  <main>
+    <div class="grid grid-cols-1 lg:[grid-template-columns:1fr_1.5fr_1fr] gap-8 p-4 md:p-8">
+      <section class="calculator">
+        <div class="header">
+          <h2 class="text-2xl font-bold text-white/90 uppercase text-left">Calculadora</h2>
+          <select id="select-currency">
+            <option value="dollar" selected>USD</option>
+            <option value="euro">EUR</option>
+          </select>
+        </div>
+
+        <div class="w-full flex gap-6 mb-4 justify-between">
+          <select id="monitors">
+            <option value="enparalelovzla" selected>Paralelo</option>
+            <option value="bcv">BCV</option>
+          </select>
+
+          <button id="reset">Reset</button>
+        </div>
+
+        <section class="w-full flex flex-col gap-8">
+          <div class="grid grid-cols-[1fr_11fr_auto] gap-2">
+            <label class="font-bold text-green-500 md:text-2xl" for="currency">$</label>
+            <input type="number" inputmode="numeric" id="currency">
+            <button id="copy-btn" class="text-white/60 hover:text-white transition-all duration-100 w-[24px]">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="copy-icon">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+              </svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="hidden text-green-500 icon icon-tabler icons-tabler-outline icon-tabler-check">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l5 5l10 -10" />
+              </svg>
+
+              <span id="tooltip-text">Copy</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-[1fr_11fr_auto] gap-2">
+            <label class="font-bold text-green-500 md:text-2xl" for="bolivares">Bs</label>
+            <input type="number" inputmode="numeric" id="bolivares">
+            <button id="copy-btn" class=" text-white/60 hover:text-white transition-all duration-100 w-[24px]">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="copy-icon">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+              </svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="hidden text-green-500 icon icon-tabler icons-tabler-outline icon-tabler-check">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M5 12l5 5l10 -10" />
+              </svg>
+
+              <span id="tooltip-text">Copy</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="percent" class="w-full flex flex-col gap-8 text-center text-green-500"></section>
+      </section>
+
+      <section class="text-center text-sm lg:col-start-2 lg:row-start-2 hover:cursor-default">
+        <p class="text-white/60">Última actualización</p>
+        <time id="last-update" class="text-green-500" datetime="2023-10-01"></time>
+      </section>
+
+      <section class="flex items-center justify-center p-4 text-white/60">
+        <p class="text-center">Puedes escribir en cualquiera de los dos campos el valor que quieras calcular en la otra
+          moneda</p>
+      </section>
+
+    </div>
+  </main>
+</body>
+
+</html>
