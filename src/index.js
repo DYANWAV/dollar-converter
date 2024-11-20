@@ -1,8 +1,5 @@
-import {
-  DOLLAR_INFO_URL,
-  EURO_INFO_URL,
-  getCurrencyInfo,
-} from './services/getCurrencyInfo.js'
+import { URLs } from './consts.js'
+import { getCurrencyInfo } from './services/getCurrencyInfo.js'
 import { copyToClipboard } from './utils/copyToClipboard.js'
 import { setLastUpdate } from './utils/getLastUpdate.js'
 
@@ -17,22 +14,9 @@ const $copyBtns = document.querySelectorAll('#copy-btn')
 const $selectCurrency = $('#select-currency')
 const $currencySymbol = $('[for="currency"]')
 
-const getPrice = async currency => {
-  const url = {
-    dollar: DOLLAR_INFO_URL,
-    euro: EURO_INFO_URL,
-  }
-
-  try {
-    const monitors = await getCurrencyInfo(url[currency])
-    const { price, percent, symbol } = monitors.enparalelovzla
-    return { monitors, price, percent, symbol }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-let { monitors, price, percent, symbol } = await getPrice($selectCurrency.value)
+let { monitors, percent, price, symbol } = await getCurrencyInfo(
+  URLs[$selectCurrency.value]
+)
 
 const updateHTML = () => {
   $bolivaresInput.value = price
@@ -47,7 +31,7 @@ const updateHTML = () => {
 updateHTML()
 
 $selectCurrency.addEventListener('change', async e => {
-  const { monitors: newMonitors } = await getPrice(e.target.value)
+  const { monitors: newMonitors } = await getCurrencyInfo(URLs[e.target.value])
   monitors = newMonitors
   const monitor = $selectMonitor.value
   const {
