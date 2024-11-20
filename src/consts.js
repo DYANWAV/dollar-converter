@@ -14,3 +14,14 @@ export const URLs = {
   dollar: DOLLAR_INFO_URL,
   euro: EURO_INFO_URL,
 }
+
+export const CURRENCIES = {
+  dollar: {
+    name: 'dollar',
+    symbol: '$',
+  },
+  euro: {
+    name: 'euro',
+    symbol: '€',
+  },
+}

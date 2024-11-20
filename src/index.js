@@ -1,39 +1,21 @@
-import { URLs } from './consts.js'
+import { CURRENCIES, URLs } from './consts.js'
 import { getCurrencyInfo } from './services/getCurrencyInfo.js'
 import { copyToClipboard } from './utils/copyToClipboard.js'
 import { setLastUpdate } from './utils/getLastUpdate.js'
+import { getElements } from './utils/getElements.js'
 
-const $ = el => document.querySelector(el)
-const $bolivaresInput = $('#bolivares')
-const $currencyInput = $('#currency')
-const $selectMonitor = $('#monitors')
-const $resetBtn = $('#reset')
-const $last_update = $('#last-update')
-const $percent = $('#percent')
-const $copyBtns = document.querySelectorAll('#copy-btn')
-const $selectCurrency = $('#select-currency')
-const $currencySymbol = $('[for="currency"]')
+const $ = getElements()
 
 let { monitors, percent, price, symbol } = await getCurrencyInfo(
-  URLs[$selectCurrency.value]
+  URLs[$.selectCurrency.value]
 )
-
-const updateHTML = () => {
-  $bolivaresInput.value = price
-  $currencyInput.value = '1.00'
-  $currencySymbol.textContent = $selectCurrency.value === 'euro' ? '€' : '$'
-  $percent.textContent = `${symbol} ${percent}%`
-  $percent.classList.remove('text-green-500', 'text-red-500')
-  $percent.classList.add(symbol === '▼' ? 'text-red-500' : 'text-green-500')
-  setLastUpdate(monitors, $selectMonitor.value, $last_update)
-}
 
 updateHTML()
 
-$selectCurrency.addEventListener('change', async e => {
+$.selectCurrency.addEventListener('change', async e => {
   const { monitors: newMonitors } = await getCurrencyInfo(URLs[e.target.value])
   monitors = newMonitors
-  const monitor = $selectMonitor.value
+  const monitor = $.selectMonitor.value
   const {
     price: newPrice,
     percent: newPercent,
@@ -45,23 +27,23 @@ $selectCurrency.addEventListener('change', async e => {
   updateHTML()
 })
 
-$bolivaresInput.addEventListener('input', e => {
+$.bolivaresInput.addEventListener('input', e => {
   let bolivares = e.target.value
 
   const result = bolivares / price
-  $currencyInput.value = result.toFixed(2)
+  $.currencyInput.value = result.toFixed(2)
 })
 
-$currencyInput.addEventListener('input', e => {
+$.currencyInput.addEventListener('input', e => {
   let dollars = e.target.value
 
   const result = dollars * price
-  $bolivaresInput.value = result.toFixed(2)
+  $.bolivaresInput.value = result.toFixed(2)
 })
 
-$resetBtn.addEventListener('click', async () => updateHTML())
+$.resetBtn.addEventListener('click', async () => updateHTML())
 
-$selectMonitor.addEventListener('change', e => {
+$.selectMonitor.addEventListener('change', e => {
   const monitor = e.target.value
   const {
     price: newPrice,
@@ -76,6 +58,19 @@ $selectMonitor.addEventListener('change', e => {
   updateHTML()
 })
 
-$copyBtns.forEach(copyBtn =>
+$.copyBtns.forEach(copyBtn =>
   copyBtn.addEventListener('click', () => copyToClipboard(copyBtn))
 )
+
+function updateHTML() {
+  $.bolivaresInput.value = price
+  $.currencyInput.value = '1.00'
+  $.currencySymbol.textContent =
+    $.selectCurrency.value === CURRENCIES.euro.name
+      ? CURRENCIES.euro.symbol
+      : CURRENCIES.dollar.symbol
+  $.percent.textContent = `${symbol} ${percent}%`
+  $.percent.classList.remove('text-green-500', 'text-red-500')
+  $.percent.classList.add(symbol === '▼' ? 'text-red-500' : 'text-green-500')
+  setLastUpdate(monitors, $.selectMonitor.value, $.last_update)
+}
